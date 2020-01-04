@@ -21,9 +21,13 @@ const neighborhoods = {
 };
 
 function loadPropertyDetails(url) {
-  $.get(url, function(data) {
+  fetch(url)
+    .then((response) => {
+      return response.text();
+    })
+    .then ((pageSource) => {
     const properties = [];
-    $.each($(data), function(_, element) {
+    $.each($(pageSource), function(_, element) {
       if (element.id === 'pagewrap') {
         const $listing = $(element).find('.props_summary .property');
         $listing.each(function(i, property) {
